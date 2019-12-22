@@ -146,9 +146,11 @@ class Main:
             for country in self.countries:
                 country.update_balance()
 
-    def check_countries_connected(self, country, country_list):
-        country_list = country_list
+    def check_countries_connected(self, country, country_list=None):
+        #country_list = country_list
 
+        if country_list is None:
+            country_list = []
         if country in country_list:
             return
         else:
