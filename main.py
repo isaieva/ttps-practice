@@ -45,7 +45,13 @@ class Main:
                                 self.case_is_correct = False
                                 return False
 
-                            country = Country(args[0], xl, yl, xh, yh)
+                            country = Country(
+                                name=args[0],
+                                xl=xl,
+                                yl=yl,
+                                xh=xh,
+                                yh=yh
+                            )
 
                             self.grid_length = max(self.grid_length, xl + 1, xh + 1)
                             self.grid_height = max(self.grid_height, yl + 1, yh + 1)
