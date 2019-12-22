@@ -36,7 +36,14 @@ class Main:
                         args = line.split()
 
                         if self.check_line_correct(args, line_number):
-                            xl, yl, xh, yh = int(args[1]), int(args[2]), int(args[3]), int(args[4])
+                            try:
+                                xl, yl, xh, yh = int(args[1]), int(args[2]), int(args[3]), int(args[4])
+                            except (ValueError, TypeError):
+                                self.errors.append(
+                                    {'case': self.cases_count, 'text': f'Incorrect argument. Line {line_number}'}
+                                )
+                                self.case_is_correct = False
+                                return False
 
                             country = Country(args[0], xl, yl, xh, yh)
 
