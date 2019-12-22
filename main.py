@@ -1,5 +1,4 @@
-from country import *
-from city import *
+from country import Country
 from operator import and_
 import os
 

@@ -1,4 +1,4 @@
-from city import *
+from city import City
 
 
 class Country:
