@@ -1,6 +1,7 @@
 from country import *
 from city import *
 from operator import and_
+import os
 
 
 class Main:
@@ -238,5 +239,7 @@ class Main:
         print()
 
 
+FILE_PATH = os.path.join('.', 'test1.txt')
+
 count = Main()
-count.process('test1.txt')
+count.process(FILE_PATH)
