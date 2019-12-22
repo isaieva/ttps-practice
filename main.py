@@ -19,64 +19,64 @@ class Main:
         self.grid_height = 0
 
     def process(self, name):
-        file_obj = open(name, 'r')
-        country_number = 0
-        line_number = 0
-        case_is_started = False
+        with open(name, 'r') as file_obj:
+            country_number = 0
+            line_number = 0
+            case_is_started = False
 
-        for line in file_obj:
-            line_number += 1
+            for line in file_obj:
+                line_number += 1
 
-            if not line.strip():
-                continue
-            if case_is_started:
-                country_number += 1
-
-                if self.case_is_correct:
-                    args = line.split()
-
-                    if self.check_line_correct(args, line_number):
-                        xl, yl, xh, yh = int(args[1]), int(args[2]), int(args[3]), int(args[4])
-
-                        country = Country(args[0], xl, yl, xh, yh)
-
-                        self.grid_length = max(self.grid_length, xl + 1, xh + 1)
-                        self.grid_height = max(self.grid_height, yl + 1, yh + 1)
-
-                        self.countries.append(country)
-
-                if country_number == self.countries_amount:
-                    case_is_started = False
-
-            else:
-                # Check if we ended reading case or it's just the beginning of file_obj
-                if self.cases_count > 0:
+                if not line.strip():
+                    continue
+                if case_is_started:
+                    country_number += 1
 
                     if self.case_is_correct:
-                        self.create_grid()
+                        args = line.split()
+
+                        if self.check_line_correct(args, line_number):
+                            xl, yl, xh, yh = int(args[1]), int(args[2]), int(args[3]), int(args[4])
+
+                            country = Country(args[0], xl, yl, xh, yh)
+
+                            self.grid_length = max(self.grid_length, xl + 1, xh + 1)
+                            self.grid_height = max(self.grid_height, yl + 1, yh + 1)
+
+                            self.countries.append(country)
+
+                    if country_number == self.countries_amount:
+                        case_is_started = False
+
+                else:
+                    # Check if we ended reading case or it's just the beginning of file_obj
+                    if self.cases_count > 0:
 
                         if self.case_is_correct:
-                            self.count_days()
+                            self.create_grid()
 
-                    self.print_count()
-                    self.clear()
+                            if self.case_is_correct:
+                                self.count_days()
 
-                try:
-                    country_number = 0
-                    self.cases_count += 1
+                        self.print_count()
+                        self.clear()
 
-                    self.countries_amount = int(line)
+                    try:
+                        country_number = 0
+                        self.cases_count += 1
 
-                    if self.countries_amount == 0:
-                        break
-                    elif self.countries_amount < 0:
-                        raise ValueError
+                        self.countries_amount = int(line)
 
-                    case_is_started = True
+                        if self.countries_amount == 0:
+                            break
+                        elif self.countries_amount < 0:
+                            raise ValueError
 
-                except ValueError:
-                    self.errors.append({'case': self.cases_count, 'text': f'Error in line {line_number}'})
-                    self.case_is_correct = False
+                        case_is_started = True
+
+                    except ValueError:
+                        self.errors.append({'case': self.cases_count, 'text': f'Error in line {line_number}'})
+                        self.case_is_correct = False
 
     def check_line_correct(self, args, line_number):
         if len(args) != self.INPUT_ARGS_NUMBER:
