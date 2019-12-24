@@ -3,6 +3,7 @@ from copy import deepcopy
 
 class City:
 
+    MIN_SHARE_COUNT = 1000
     NEIGHBORS_COORD = ((-1, 0), (0, -1), (1, 0), (0, 1))
 
     def __init__(self, x, y, country_name):
@@ -19,7 +20,7 @@ class City:
 
     def change_balance(self):
         for i in range(len(self.country_coins_mapping)):
-            if self.country_coins_mapping[i]['amount'] >= 1000:
+            if self.country_coins_mapping[i]['amount'] >= self.MIN_SHARE_COUNT:
 
                 partition = self.country_coins_mapping[i]['amount'] // 1000
 
