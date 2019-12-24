@@ -22,7 +22,7 @@ class City:
         for i in range(len(self.country_coins_mapping)):
             if self.country_coins_mapping[i]['amount'] >= self.MIN_SHARE_COUNT:
 
-                partition = self.country_coins_mapping[i]['amount'] // 1000
+                partition = self.country_coins_mapping[i]['amount'] // self.MIN_SHARE_COUNT
 
                 for neighbor in self.neighbor_cities:
                     neighbor.add_other_countries_coins(self.country_coins_mapping[i]['country_name'], partition)

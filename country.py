@@ -22,8 +22,10 @@ class Country:
             if len(city.country_coins_mapping) != countries_amount:
                 return False
 
+        if self.complete_day != 0:
+            return True
         # Check if this country was completed earlier or not
-        if self.complete_day == 0:
+        elif self.complete_day == 0:
             self.complete_day = complete_day
 
         return True
